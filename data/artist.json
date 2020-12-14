@@ -1,0 +1,16 @@
+{
+	"id": 1,
+	"firstName": "Benceslao",
+	"lastName": "de la Isla",
+	"discs": [
+		{
+			"songs": [{
+				"name": "como el agua",
+				"duration": 3
+			}],
+			"releaseDate": "2018-12-10T13:45:00.000Z"
+		}
+	],
+	"father": "Pepe",
+	"mother": "Maria"
+}
