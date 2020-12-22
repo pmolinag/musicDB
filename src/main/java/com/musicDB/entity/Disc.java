@@ -1,4 +1,4 @@
-package com.musicDB;
+package com.musicDB.entity;
 
 import java.util.Arrays;
 import java.util.Date;

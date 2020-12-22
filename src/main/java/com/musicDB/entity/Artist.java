@@ -1,5 +1,4 @@
-package com.musicDB;
-
+package com.musicDB.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

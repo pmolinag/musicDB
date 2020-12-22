@@ -10,6 +10,6 @@ public class ArtistRestController {
 
     @GetMapping("/hello")
     public String sayHello() {
-        return "Hello world!";
+        return "The artist endpoint says hello!";
     }
 }
