@@ -1,5 +1,8 @@
 package com.musicDB;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.musicDB.entity.Artist;
+import com.musicDB.entity.Disc;
+
 import java.io.File;
 
 public class Application {
