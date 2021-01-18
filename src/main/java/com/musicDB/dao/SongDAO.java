@@ -7,4 +7,5 @@ import java.util.List;
 public interface SongDAO {
     public List<Song> getSongs();
     public Song getSong(long songId);
+    public Song createSong(Song song);
 }

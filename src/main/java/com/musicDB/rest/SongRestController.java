@@ -31,4 +31,9 @@ public class SongRestController {
 
         return song;
     }
+
+    @PostMapping
+    public Song createSong(@RequestBody Song song) {
+        return songService.createSong(song);
+    }
 }
