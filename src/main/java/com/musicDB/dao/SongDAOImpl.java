@@ -33,4 +33,11 @@ public class SongDAOImpl implements SongDAO {
         // return the results
         return songs;
     }
+
+    @Override
+    public Song getSong(long songId) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        return currentSession.get(Song.class, songId);
+    }
 }
