@@ -33,4 +33,24 @@ public class SongDAOImpl implements SongDAO {
         // return the results
         return songs;
     }
+
+    @Override
+    public Song getSong(long songId) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        return currentSession.get(Song.class, songId);
+    }
+
+    @Override
+    public Song createSong(Song song) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        // Set song id to 0 so that DAO inserts a new customer instead of updating an existing one
+        song.setId(0);
+
+        long songId = (long) currentSession.save(song);
+        song.setId(songId);
+
+        return song;
+    }
 }

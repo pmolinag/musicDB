@@ -19,4 +19,16 @@ public class SongServiceImpl implements SongService {
     public List<Song> getSongs() {
         return songDAO.getSongs();
     }
+
+    @Override
+    @Transactional
+    public Song getSong(long songId) {
+        return songDAO.getSong(songId);
+    }
+
+    @Override
+    @Transactional
+    public Song createSong(Song song) {
+        return songDAO.createSong(song);
+    }
 }
