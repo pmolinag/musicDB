@@ -9,7 +9,7 @@ public class Song {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    int id;
 
     @Column(name = "name")
     private String name;
@@ -20,17 +20,11 @@ public class Song {
     public Song() {
     }
 
-    public Song(long id, String name, int duration) {
-        this.id = id;
-        this.name = name;
-        this.duration = duration;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -47,6 +41,12 @@ public class Song {
     }
 
     public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Song(int id, String name, int duration) {
+        this.id = id;
+        this.name = name;
         this.duration = duration;
     }
 

@@ -1,16 +1,29 @@
 package com.musicDB.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Artist {
 
+    @Id
     private int id;
-    private String firstName;
-    private String lastName;
-    private Disc[] discs;
 
-    public Artist(int id, String firstName, String lastName, Disc[] discs) {
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "second_name")
+    private String lastName;
+
+    @OneToMany
+    private List<Disc> discs;
+
+    public Artist(int id, String firstName, String lastName, List<Disc> discs) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,7 +45,7 @@ public class Artist {
         return lastName;
     }
 
-    public Disc[] getDiscs() {
+    public List<Disc> getDiscs() {
         return discs;
     }
 
@@ -48,7 +61,7 @@ public class Artist {
         this.lastName = lastName;
     }
 
-    public void setDiscs(Disc[] discs) {
+    public void setDiscs(List<Disc> discs) {
         this.discs = discs;
     }
 }
