@@ -9,13 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  * Disc entity.
  */
 @Entity
-@Table(name = "disc")
+@Table(name = "discs")
 public class Disc {
 
     @Id
@@ -23,11 +24,13 @@ public class Disc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "songs")
     @OneToMany(cascade= CascadeType.ALL)
     private List<Song> songs;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Artist artist;
+    // TODO cambiar por tipo Artist
+    @Column(name = "artist")
+    private String artist;
 
     public int getId() {
         return id;
@@ -45,11 +48,11 @@ public class Disc {
         this.songs = songs;
     }
 
-    public Artist getArtist() {
+    public String getArtist() {
         return artist;
     }
 
-    public void setArtist(Artist artist) {
+    public void setArtist(String artist) {
         this.artist = artist;
     }
 
@@ -58,14 +61,14 @@ public class Disc {
         return "Disc{" +
                 "id=" + id +
                 ", songs=" + songs +
-                ", artist=" + artist.getFirstName() +
+                ", artist=" + artist +
                 '}';
     }
 
     public Disc () {
     }
 
-    public Disc (int id, List<Song> songs, Artist artist) {
+    public Disc (int id, List<Song> songs, String artist) {
         this.id = id;
         this.songs = songs;
         this.artist = artist;
