@@ -1,6 +1,7 @@
 package com.musicDB.entity;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,10 +23,10 @@ public class Disc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany
+    @OneToMany(cascade= CascadeType.ALL)
     private List<Song> songs;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Artist artist;
 
     public int getId() {
