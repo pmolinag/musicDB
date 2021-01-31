@@ -1,5 +1,6 @@
 package com.musicDB.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.Column;
@@ -16,9 +17,8 @@ import javax.persistence.Table;
 public class Artist {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -26,11 +26,12 @@ public class Artist {
     @Column(name = "second_name")
     private String lastName;
 
+    @JsonIgnore
     @Column(name = "discs")
     @OneToMany
     private List<Disc> discs;
 
-    public Artist(int id, String firstName, String lastName, List<Disc> discs) {
+    public Artist(Long id, String firstName, String lastName, List<Disc> discs) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,7 +41,7 @@ public class Artist {
     public Artist() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -56,7 +57,7 @@ public class Artist {
         return discs;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
