@@ -1,5 +1,6 @@
 package com.musicDB.service;
 
+import com.musicDB.entity.Artist;
 import com.musicDB.entity.Disc;
 import com.musicDB.repositories.discsRepository;
 import java.util.List;
@@ -16,5 +17,10 @@ public class DiscService {
     @Transactional
     public List<Disc> getDiscs() {
         return DiscsRepository.getDiscs();
+    }
+
+    @Transactional
+    public List<Disc> getDiscById(Long discId) {
+        return DiscsRepository.getDiscById(discId);
     }
 }
