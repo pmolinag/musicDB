@@ -1,16 +1,37 @@
 package com.musicDB.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "artist")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Artist {
 
-    private int id;
-    private String firstName;
-    private String lastName;
-    private Disc[] discs;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Artist(int id, String firstName, String lastName, Disc[] discs) {
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "second_name")
+    private String lastName;
+
+    @JsonIgnore
+    @Column(name = "discs")
+    @OneToMany
+    private List<Disc> discs;
+
+    public Artist(Long id, String firstName, String lastName, List<Disc> discs) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,7 +41,7 @@ public class Artist {
     public Artist() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -32,11 +53,11 @@ public class Artist {
         return lastName;
     }
 
-    public Disc[] getDiscs() {
+    public List<Disc> getDiscs() {
         return discs;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,7 +69,7 @@ public class Artist {
         this.lastName = lastName;
     }
 
-    public void setDiscs(Disc[] discs) {
+    public void setDiscs(List<Disc> discs) {
         this.discs = discs;
     }
 }

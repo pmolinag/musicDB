@@ -1,4 +1,4 @@
-package com.musicDB.rest;
+package com.musicDB.rest.controller;
 
 import com.musicDB.entity.Song;
 import com.musicDB.service.SongService;
