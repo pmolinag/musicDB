@@ -1,0 +1,4 @@
+PATCH http://localhost:8080/music-db/song/1
+Content-Type: application/json
+
+{"name": "Bongo Bong", "duration": "360"}
