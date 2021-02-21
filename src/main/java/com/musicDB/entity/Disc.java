@@ -1,17 +1,9 @@
 package com.musicDB.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Disc entity.
@@ -25,12 +17,11 @@ public class Disc {
     private Long id;
 
     @JsonIgnore
-    @Column(name = "songs")
-    @OneToMany(cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "disc", targetEntity = Song.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Song> songs;
 
-    @ManyToOne
-    @JoinColumn(name = "artist_id")
+    @ManyToOne(targetEntity = Artist.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id", referencedColumnName = "id")
     private Artist artist;
 
     public Long getId() {
@@ -66,10 +57,10 @@ public class Disc {
                 '}';
     }
 
-    public Disc () {
+    public Disc() {
     }
 
-    public Disc (Long id, List<Song> songs, Artist artist) {
+    public Disc(Long id, List<Song> songs, Artist artist) {
         this.id = id;
         this.songs = songs;
         this.artist = artist;
