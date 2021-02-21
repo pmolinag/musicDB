@@ -36,7 +36,7 @@ public class SongDAOImpl implements SongDAO {
 
         // create a query  ... sort by last name
         Query<Song> getSongsQuery =
-                currentSession.createQuery("from Song order by name",
+                currentSession.createQuery("select s from Song s order by name",
                         Song.class);
 
         // execute query and get result list

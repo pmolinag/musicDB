@@ -24,6 +24,15 @@ public class Disc {
     @JoinColumn(name = "artist_id", referencedColumnName = "id")
     private Artist artist;
 
+    public Disc() {
+    }
+
+    public Disc(Long id, List<Song> songs, Artist artist) {
+        this.id = id;
+        this.songs = songs;
+        this.artist = artist;
+    }
+
     public Long getId() {
         return id;
     }
@@ -55,14 +64,5 @@ public class Disc {
                 ", songs=" + songs +
                 ", artist=" + artist +
                 '}';
-    }
-
-    public Disc() {
-    }
-
-    public Disc(Long id, List<Song> songs, Artist artist) {
-        this.id = id;
-        this.songs = songs;
-        this.artist = artist;
     }
 }

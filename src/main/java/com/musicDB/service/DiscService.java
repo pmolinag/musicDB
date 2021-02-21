@@ -1,6 +1,7 @@
 package com.musicDB.service;
 
 import com.musicDB.entity.Disc;
+import com.musicDB.entity.Song;
 import com.musicDB.repositories.DiscsRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,15 @@ public class DiscService {
     @Transactional
     public Disc getDiscById(Long discId) {
         return discsRepository.getDiscById(discId);
+    }
+
+    @Transactional
+    public List<Song> getDiscSongs(Long discId) {
+        return discsRepository.getDiscSongs(discId);
+    }
+
+    @Transactional
+    public Song createDiscSong(Long discId, Song song) {
+        return discsRepository.createDiscSong(discId, song);
     }
 }

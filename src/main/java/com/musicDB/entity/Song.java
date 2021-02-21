@@ -21,6 +21,10 @@ public class Song {
     @Column(name = "duration")
     private int duration;
 
+    @ManyToOne(targetEntity = Disc.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "disc_id", referencedColumnName = "id")
+    private Disc disc;
+
     public Song() {
     }
 
@@ -46,6 +50,14 @@ public class Song {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Disc getDisc() {
+        return this.disc;
+    }
+
+    public void setDisc(Disc disc) {
+        this.disc = disc;
     }
 
     public Song(Long id, String name, int duration) {
