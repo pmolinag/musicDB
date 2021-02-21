@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * Disc entity.
  */
 @Entity
-@Table(name = "discs")
+@Table(name = "disc")
 public class Disc {
 
     @Id

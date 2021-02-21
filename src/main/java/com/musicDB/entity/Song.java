@@ -5,7 +5,7 @@ import com.musicDB.annotations.PatchableField;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "songs")
+@Table(name = "song")
 public class Song {
 
     @Id

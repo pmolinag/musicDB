@@ -1,6 +1,5 @@
 package com.musicDB.repositories;
 
-import com.musicDB.entity.Artist;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.musicDB.entity.Disc;
@@ -12,7 +11,7 @@ import java.util.List;
 
 
 @Repository
-public class discsRepository {
+public class DiscsRepository {
 
     // need to inject the session factory
     @Autowired
@@ -34,7 +33,7 @@ public class discsRepository {
         return discs;
     }
 
-    public List<Disc> getDiscById(Long discId) {
+    public Disc getDiscById(Long discId) {
         // get the current hibernate session
         Session currentSession = sessionFactory.getCurrentSession();
 
@@ -45,9 +44,9 @@ public class discsRepository {
         getDiscQuery.setParameter("id", discId);
 
         // execute query and get result list
-        List<Disc> discs = getDiscQuery.getResultList();
+        Disc disc = getDiscQuery.getSingleResult();
 
         // return the results
-        return discs;
+        return disc;
     }
 }

@@ -1,6 +1,5 @@
 package com.musicDB.rest.controller;
 
-import com.musicDB.entity.Artist;
 import com.musicDB.entity.Disc;
 import com.musicDB.service.DiscService;
 import java.util.List;
@@ -23,7 +22,7 @@ public class DiscController {
     }
 
     @GetMapping("/{discId}")
-    public List<Disc> getDiscById(@PathVariable Long discId) {
+    public Disc getDiscById(@PathVariable Long discId) {
         return discService.getDiscById(discId);
     }
 
