@@ -1,6 +1,6 @@
 package com.musicDB.dao;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.musicDB.annotations.PatchableField;
 import com.musicDB.entity.Song;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,15 +11,19 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.Column;
 import java.lang.reflect.Field;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Repository
 public class SongDAOImpl implements SongDAO {
+
+    private List<Field> patchableSongFields = Arrays.stream(Song.class.getDeclaredFields())
+            .filter((Field field) -> field.isAnnotationPresent(PatchableField.class))
+            .peek((Field field) -> field.setAccessible(true))
+            .collect(Collectors.toList());
 
     // need to inject the session factory
     @Autowired
@@ -74,39 +78,32 @@ public class SongDAOImpl implements SongDAO {
     }
 
     @Override
-    public Song patchSong(long songId, JsonNode songInfo) {
+    public Song patchSong(long songId, Song song) {
         Session currentSession = sessionFactory.getCurrentSession();
 
         // Sanitize and validate the data
-        if (songId <= 0 || songInfo == null || songInfo.isEmpty() || (songInfo.get("id") != null && !songInfo.get("id").equals(songId))) {
+        if (songId <= 0 || song == null || (song.getId() != null && !song.getId().equals(songId))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        Song song = currentSession.get(Song.class, songId);
+        Song realSong = currentSession.get(Song.class, songId);
 
         // Does the object exist?
-        if (song == null) {
+        if (realSong == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        for (Iterator<Map.Entry<String, JsonNode>> it = songInfo.fields(); it.hasNext(); ) {
-            Map.Entry<String, JsonNode> entry = it.next();
+        for (Field field : patchableSongFields) {
+            Object newFieldValue = ReflectionUtils.getField(field, song);
 
-            // use reflection to get field k on object and set it to value v
-            Field field = ReflectionUtils.findField(Song.class, entry.getKey()); // find field in the object class
-
-            if (field == null || !field.isAnnotationPresent(Column.class)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-            } else {
-                field.setAccessible(true);
-                Class<?> fieldType = field.getType();
-                ReflectionUtils.setField(field, song, fieldType.cast(entry.getValue().asToken())); // set given field for defined object to value V
+            if (newFieldValue != null) {
+                ReflectionUtils.setField(field, realSong, newFieldValue);
             }
         }
 
-        currentSession.saveOrUpdate(song);
+        currentSession.saveOrUpdate(realSong);
 
-        return song;
+        return realSong;
     }
 
     @Override

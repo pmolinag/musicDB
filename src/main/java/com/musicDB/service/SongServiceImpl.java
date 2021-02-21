@@ -1,6 +1,5 @@
 package com.musicDB.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.musicDB.dao.SongDAO;
 import com.musicDB.entity.Song;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +40,8 @@ public class SongServiceImpl implements SongService {
 
     @Override
     @Transactional
-    public Song patchSong(long songId, JsonNode songInfo) {
-        return songDAO.patchSong(songId, songInfo);
+    public Song patchSong(long songId, Song song) {
+        return songDAO.patchSong(songId, song);
     }
 
     @Override

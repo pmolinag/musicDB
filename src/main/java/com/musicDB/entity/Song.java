@@ -1,5 +1,7 @@
 package com.musicDB.entity;
 
+import com.musicDB.annotations.PatchableField;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,9 +13,11 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @PatchableField
     @Column(name = "name")
     private String name;
 
+    @PatchableField
     @Column(name = "duration")
     private int duration;
 

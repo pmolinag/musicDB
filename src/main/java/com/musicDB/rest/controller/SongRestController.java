@@ -1,11 +1,9 @@
 package com.musicDB.rest.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.musicDB.entity.Song;
 import com.musicDB.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -39,10 +37,10 @@ public class SongRestController {
         return songService.createSong(song);
     }
 
-    @PatchMapping(path = "/{songId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Song patchSong(@PathVariable long songId, @RequestBody JsonNode body) {
+    @PatchMapping("/{songId}")
+    public Song patchSong(@PathVariable long songId, @RequestBody Song song) {
         // only replace the fields in the body. Currently broken :(
-        return songService.patchSong(songId, body);
+        return songService.patchSong(songId, song);
     }
 
     @PutMapping("/{songId}")
