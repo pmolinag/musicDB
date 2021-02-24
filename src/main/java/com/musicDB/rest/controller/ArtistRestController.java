@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/artist")
+@RequestMapping("/artists")
 public class ArtistRestController {
 
     @GetMapping("/hello")
     public String sayHello() {
-        return "The artist endpoint says hello!";
+        return "The artists endpoint says hello!";
     }
 }

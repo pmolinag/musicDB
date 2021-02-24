@@ -1,0 +1,4 @@
+PATCH http://localhost:8080/music-db/songs/1
+Content-Type: application/json
+
+{"duration": "720"}

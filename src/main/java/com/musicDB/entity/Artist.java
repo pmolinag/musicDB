@@ -2,14 +2,9 @@ package com.musicDB.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "artist")
@@ -27,8 +22,7 @@ public class Artist {
     private String lastName;
 
     @JsonIgnore
-    @Column(name = "discs")
-    @OneToMany
+    @OneToMany(mappedBy = "artist", targetEntity = Disc.class, cascade = CascadeType.ALL)
     private List<Disc> discs;
 
     public Artist(Long id, String firstName, String lastName, List<Disc> discs) {

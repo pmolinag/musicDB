@@ -31,4 +31,22 @@ public class SongServiceImpl implements SongService {
     public Song createSong(Song song) {
         return songDAO.createSong(song);
     }
+
+    @Override
+    @Transactional
+    public Song putSong(long songId, Song song) {
+        return songDAO.putSong(songId, song);
+    }
+
+    @Override
+    @Transactional
+    public Song patchSong(long songId, Song song) {
+        return songDAO.patchSong(songId, song);
+    }
+
+    @Override
+    @Transactional
+    public void deleteSong(long songId) {
+        songDAO.deleteSong(songId);
+    }
 }

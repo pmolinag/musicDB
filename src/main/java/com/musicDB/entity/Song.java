@@ -1,9 +1,11 @@
 package com.musicDB.entity;
 
+import com.musicDB.annotations.PatchableField;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "songs")
+@Table(name = "song")
 public class Song {
 
     @Id
@@ -11,11 +13,17 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @PatchableField
     @Column(name = "name")
     private String name;
 
+    @PatchableField
     @Column(name = "duration")
     private int duration;
+
+    @ManyToOne(targetEntity = Disc.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "disc_id", referencedColumnName = "id")
+    private Disc disc;
 
     public Song() {
     }
@@ -42,6 +50,14 @@ public class Song {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Disc getDisc() {
+        return this.disc;
+    }
+
+    public void setDisc(Disc disc) {
+        this.disc = disc;
     }
 
     public Song(Long id, String name, int duration) {
