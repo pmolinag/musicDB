@@ -39,17 +39,16 @@ public class SongRestController {
 
     @PatchMapping("/{songId}")
     public Song patchSong(@PathVariable long songId, @RequestBody Song song) {
-        // only replace the fields in the body. Currently broken :(
         return songService.patchSong(songId, song);
     }
 
     @PutMapping("/{songId}")
     public Song putSong(@PathVariable long songId, @RequestBody Song song) {
-        // replace all fields in song for the ones in the body. Create if it doesn't exist. Idempotent
         return songService.putSong(songId, song);
     }
 
     @DeleteMapping("/{songId}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteSong(@PathVariable long songId) {
         songService.deleteSong(songId);
     }
