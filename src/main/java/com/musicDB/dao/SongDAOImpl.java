@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Repository
 public class SongDAOImpl implements SongDAO {
 
-    private List<Field> patchableSongFields = Arrays.stream(Song.class.getDeclaredFields())
+    private final List<Field> patchableSongFields = Arrays.stream(Song.class.getDeclaredFields())
             .filter((Field field) -> field.isAnnotationPresent(PatchableField.class))
             .peek((Field field) -> field.setAccessible(true))
             .collect(Collectors.toList());
@@ -34,9 +34,9 @@ public class SongDAOImpl implements SongDAO {
         // get the current hibernate session
         Session currentSession = sessionFactory.getCurrentSession();
 
-        // create a query  ... sort by last name
+        // create a query  ... sort by name
         Query<Song> getSongsQuery =
-                currentSession.createQuery("select s from Song s order by name",
+                currentSession.createQuery("select s from Song s order by s.name",
                         Song.class);
 
         // execute query and get result list

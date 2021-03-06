@@ -1,6 +1,7 @@
 package com.musicDB.entity;
 
 import com.musicDB.annotations.PatchableField;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 
@@ -18,6 +19,7 @@ public class Song {
     private String name;
 
     @PatchableField
+    @Range(min = 0, max = 10 * 60) // 10 minutes
     @Column(name = "duration")
     private int duration;
 

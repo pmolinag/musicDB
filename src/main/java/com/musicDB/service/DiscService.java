@@ -2,35 +2,18 @@ package com.musicDB.service;
 
 import com.musicDB.entity.Disc;
 import com.musicDB.entity.Song;
-import com.musicDB.repositories.DiscsRepository;
+
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class DiscService {
+public interface DiscService {
 
-    @Autowired
-    private DiscsRepository discsRepository;
+    public List<Disc> getDiscs();
 
-    @Transactional
-    public List<Disc> getDiscs() {
-        return discsRepository.getDiscs();
-    }
+    public List<Disc> searchDiscs(String pattern);
 
-    @Transactional
-    public Disc getDiscById(Long discId) {
-        return discsRepository.getDiscById(discId);
-    }
+    public Disc getDiscById(Long discId);
 
-    @Transactional
-    public List<Song> getDiscSongs(Long discId) {
-        return discsRepository.getDiscSongs(discId);
-    }
+    public List<Song> getDiscSongs(Long discId);
 
-    @Transactional
-    public Song createDiscSong(Long discId, Song song) {
-        return discsRepository.createDiscSong(discId, song);
-    }
+    public Song createDiscSong(Long discId, Song song);
 }

@@ -4,17 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Disc entity.
  */
 @Entity
-@Table(name = "disc")
+@Table(name = "disc", uniqueConstraints = @UniqueConstraint(columnNames = {"title", "artist_id"}))
 public class Disc {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Column(name = "title")
+    private String title;
 
     @JsonIgnore
     @OneToMany(mappedBy = "disc", targetEntity = Song.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -27,8 +32,9 @@ public class Disc {
     public Disc() {
     }
 
-    public Disc(Long id, List<Song> songs, Artist artist) {
+    public Disc(Long id, String title, List<Song> songs, Artist artist) {
         this.id = id;
+        this.title = title;
         this.songs = songs;
         this.artist = artist;
     }
@@ -57,10 +63,19 @@ public class Disc {
         this.artist = artist;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "Disc{" +
                 "id=" + id +
+                ", title=" + title +
                 ", songs=" + songs +
                 ", artist=" + artist +
                 '}';

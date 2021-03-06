@@ -5,10 +5,10 @@ import com.musicDB.entity.Song;
 import java.util.List;
 
 public interface SongDAO {
-    public List<Song> getSongs();
-    public Song getSong(long songId);
-    public Song createSong(Song song);
-    public Song putSong(long songId, Song song);
-    public Song patchSong(long songId, Song song);
-    public void deleteSong(long songId);
+    List<Song> getSongs();
+    Song getSong(long songId);
+    Song createSong(Song song);
+    Song putSong(long songId, Song song);
+    Song patchSong(long songId, Song song);
+    void deleteSong(long songId);
 }

@@ -3,7 +3,9 @@ package com.musicDB.rest.controller;
 import com.musicDB.entity.Disc;
 import com.musicDB.entity.Song;
 import com.musicDB.service.DiscService;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,10 @@ public class DiscController {
     private DiscService discService;
 
     @GetMapping()
-    public List<Disc> getDiscs() {
+    public List<Disc> getDiscs(@RequestParam(value = "searchPattern", required = false) String searchPattern) {
+        if (searchPattern != null) {
+            return discService.searchDiscs(searchPattern);
+        }
         return discService.getDiscs();
     }
 

@@ -1,0 +1,11 @@
+POST http://localhost:8080/music-db/artists
+Content-Type: application/json
+
+{
+  "firstName": "Jose Luis",
+  "lastName": "Cantero Rada",
+  "alias": "El Fary",
+  "email": "fary@gmail.com",
+  "birthDate": "1937-09-20",
+  "gender": "MALE"
+}
