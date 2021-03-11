@@ -1,5 +1,6 @@
 package com.musicDB.repositories;
 
+import com.musicDB.entity.Artist;
 import com.musicDB.entity.Song;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import java.util.List;
 
 
 @Repository
-public class DiscsRepository {
+public class DiscRepository {
 
     // need to inject the session factory
     @Autowired
@@ -26,7 +27,7 @@ public class DiscsRepository {
 
         // create a query  ... sort by last name
         Query<Disc> getDiscsQuery =
-                currentSession.createQuery("select d from Disc d",
+                currentSession.createQuery("SELECT d FROM Disc d",
                         Disc.class);
 
         // execute query and get result list
@@ -42,7 +43,7 @@ public class DiscsRepository {
 
         // create a query  ... sort by last name
         Query<Disc> getDiscQuery =
-                currentSession.createQuery("select d from Disc d where d.id = :id",
+                currentSession.createQuery("SELECT d FROM Disc d WHERE d.id = :id",
                         Disc.class);
         getDiscQuery.setParameter("id", discId);
 
@@ -63,7 +64,7 @@ public class DiscsRepository {
         }
 
         Query<Song> getDiscSongsQuery =
-                currentSession.createQuery("select s from Song s, Disc d where s.disc.id = d.id and d.id = :id", Song.class);
+                currentSession.createQuery("SELECT s FROM Song s, Disc d WHERE s.disc.id = d.id AND d.id = :id", Song.class);
 
         getDiscSongsQuery.setParameter("id", discId);
 
@@ -85,5 +86,41 @@ public class DiscsRepository {
         currentSession.save(song);
 
         return song;
+    }
+
+    public List<Disc> searchDiscs(String pattern) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query<Disc> getDiscsQuery = session.createQuery("SELECT d FROM Disc d WHERE d.title LIKE CONCAT('%', :pattern, '%')", Disc.class);
+
+        getDiscsQuery.setParameter("pattern", pattern);
+
+        return getDiscsQuery.getResultList();
+    }
+
+    public Disc createArtistDisc(long artistId, Disc disc) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Artist artist = session.get(Artist.class, artistId);
+
+        if (artist == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find artist");
+        }
+
+        disc.setArtist(artist);
+
+        session.save(disc);
+
+        return disc;
+    }
+
+    public List<Disc> getArtistDiscs(long artistId) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query<Disc> getDiscsQuery = session.createQuery("SELECT d FROM Disc d WHERE d.artist.id=:artistId", Disc.class);
+
+        getDiscsQuery.setParameter("artistId", artistId);
+
+        return getDiscsQuery.getResultList();
     }
 }

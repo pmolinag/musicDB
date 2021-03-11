@@ -1,0 +1,4 @@
+POST http://localhost:8080/music-db/artists/1/discs
+Content-Type: application/json
+
+{"title": "Another test disc"}

@@ -99,6 +99,16 @@
     <!-- Support for Maven WAR Plugin -->
     <build>
         <finalName>music-db</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
+        </plugins>
         <sourceDirectory>src</sourceDirectory>
         <pluginManagement>
             <plugins>
