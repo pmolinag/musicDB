@@ -2,15 +2,14 @@ package com.musicDB.repositories;
 
 import com.musicDB.entity.Artist;
 import com.musicDB.entity.Song;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.musicDB.entity.Disc;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.SessionFactory;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 
@@ -60,7 +59,7 @@ public class DiscRepository {
         Disc disc = currentSession.get(Disc.class, discId);
 
         if (disc == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find disc");
+            throw new EntityNotFoundException("Unable to find disc");
         }
 
         Query<Song> getDiscSongsQuery =
@@ -77,7 +76,7 @@ public class DiscRepository {
         Disc disc = currentSession.get(Disc.class, discId);
 
         if (disc == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find disc");
+            throw new EntityNotFoundException("Unable to find disc");
         }
 
         song.setId(0L);
@@ -104,7 +103,7 @@ public class DiscRepository {
         Artist artist = session.get(Artist.class, artistId);
 
         if (artist == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find artist");
+            throw new EntityNotFoundException("Unable to find artist");
         }
 
         disc.setArtist(artist);

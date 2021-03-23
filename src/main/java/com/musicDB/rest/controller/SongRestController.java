@@ -5,8 +5,8 @@ import com.musicDB.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -26,7 +26,7 @@ public class SongRestController {
         Song song = songService.getSong(songId);
 
         if (song == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find song");
+            throw new EntityNotFoundException("Unable to find song");
         }
 
         return song;

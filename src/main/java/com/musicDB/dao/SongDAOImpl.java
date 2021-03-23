@@ -6,11 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -83,14 +82,14 @@ public class SongDAOImpl implements SongDAO {
 
         // Sanitize and validate the data
         if (songId <= 0 || song == null || (song.getId() != null && !song.getId().equals(songId))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new IllegalArgumentException("The data provided is not valid");
         }
 
         Song realSong = currentSession.get(Song.class, songId);
 
         // Does the object exist?
         if (realSong == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException();
         }
 
         for (Field field : patchableSongFields) {
@@ -113,7 +112,7 @@ public class SongDAOImpl implements SongDAO {
         Song song = currentSession.get(Song.class, songId);
 
         if (song == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Unable to find song");
         }
 
         currentSession.delete(song);
