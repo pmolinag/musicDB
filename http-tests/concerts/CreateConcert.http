@@ -1,0 +1,6 @@
+POST http://localhost:8080/music-db/concerts
+Content-Type: application/json
+
+{
+  "date": "20201005"
+}
