@@ -12,7 +12,6 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-
 @Repository
 public class DiscRepository {
 
