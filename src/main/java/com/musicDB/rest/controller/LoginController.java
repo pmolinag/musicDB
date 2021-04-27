@@ -16,6 +16,13 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @GetMapping(value = "/auth/login", produces = "text/html")
+    public String login(Model model) {
+        model.addAttribute("user", new User());
+
+        return "login.jsp";
+    }
+
     @GetMapping(value = "/auth/signup", produces = "text/html")
     public String signupForm(Model model) {
         model.addAttribute("user", new User());
@@ -24,14 +31,12 @@ public class LoginController {
     }
 
     @PostMapping("/auth/signup")
-    public String signup(@ModelAttribute User user, Model model) {
-//        if (result.hasErrors()) {
-//            return "redirect:/auth/signup.jsp";
-//        } else {
-//            model.addAttribute("user", userService.register(user));
-//        }
-
-        model.addAttribute("user", userService.register(user));
+    public String signup(@Valid @ModelAttribute User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "redirect:/auth/signup.jsp";
+        } else {
+            model.addAttribute("user", userService.register(user));
+        }
 
         return "redirect:/auth/login.jsp";
     }
