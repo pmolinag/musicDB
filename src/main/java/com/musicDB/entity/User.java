@@ -1,6 +1,8 @@
 package com.musicDB.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
@@ -12,16 +14,31 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private String apellido;
+
+    @NotBlank
+    @Column(name = "name")
+    private String name;
+
+    @NotBlank
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Email
+    @Column(name = "email")
     private String email;
+
+    @NotBlank
+    @Column(name = "username")
     private String username;
+
+    @NotBlank
+    @Column(name = "password")
     private String password;
 
-    public User(Long id, String nombre, String apellido, String email, String username, String password) {
+    public User(Long id, String name, String lastName, String email, String username, String password) {
         this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
+        this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
@@ -35,12 +52,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setEmail(String email) {
@@ -56,26 +73,26 @@ public class User implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return this.name;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getLastName() {
+        return this.lastName;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 }

@@ -7,10 +7,10 @@
 <body>
 <ul>
     <li>
-        <a href="@{/auth/login}">Login</a>
+        <a href="${pageContext.request.contextPath}/auth/login">Login</a>
     </li>
     <li>
-        <a href="@{/auth/signup}">Signup</a>
+        <a href="${pageContext.request.contextPath}/auth/signup">Signup</a>
     </li>
 </ul>
 </body>

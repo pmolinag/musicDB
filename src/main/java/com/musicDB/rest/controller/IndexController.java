@@ -8,6 +8,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String inicio() {
-        return "inicio";
+        return "index.jsp";
     }
 }

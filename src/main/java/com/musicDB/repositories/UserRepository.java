@@ -34,8 +34,6 @@ public class UserRepository {
     public User saveUser(User user) {
         Session session = sessionFactory.getCurrentSession();
 
-        user.setId(0L);
-
         session.save(user);
 
         return user;
