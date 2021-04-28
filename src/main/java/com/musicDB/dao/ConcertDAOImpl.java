@@ -54,10 +54,16 @@ public class ConcertDAOImpl implements ConcertDAO {
     @Override
     @Transactional
     public List<Song> getConcertSongs(long concertId) {
+        List<Song> songs = null;
+
         // Manually open the session since we fetch LAZY data.
         Session currentSession = sessionFactory.openSession();
         Concert concert = currentSession.get(Concert.class, concertId);
-        return concert.getSongs();
+
+        if (concert != null)
+            songs = concert.getSongs();
+        
+        return songs;
     }
 
     @Override
