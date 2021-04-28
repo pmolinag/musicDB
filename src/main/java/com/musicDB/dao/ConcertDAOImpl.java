@@ -4,6 +4,7 @@ import com.musicDB.annotations.PatchableField;
 import com.musicDB.entity.Concert;
 import com.musicDB.entity.Song;
 import com.musicDB.dao.ConcertDAO;
+import main.java.com.musicDB.errors.ConcertNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -62,7 +63,9 @@ public class ConcertDAOImpl implements ConcertDAO {
 
         if (concert != null)
             songs = concert.getSongs();
-        
+        else
+            throw new ConcertNotFoundException("Concert not found: " + concertId);
+
         return songs;
     }
 

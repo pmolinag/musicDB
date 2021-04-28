@@ -4,7 +4,11 @@ import com.musicDB.entity.Disc;
 import com.musicDB.entity.Song;
 import com.musicDB.entity.Concert;
 import com.musicDB.service.ConcertService;
+import main.java.com.musicDB.errors.ConcertErrorResponse;
+import main.java.com.musicDB.errors.ConcertNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +44,16 @@ public class ConcertController {
     public String setConcertSongs(@PathVariable Long concertId, @RequestBody List<Integer> songIds) {
         concertService.setConcertSongs(concertId, songIds);
         return "Update finished";
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ConcertErrorResponse> handleException(ConcertNotFoundException exc){
+        // Prepare response for NOT FOUND concert situation.
+        ConcertErrorResponse resp = new ConcertErrorResponse();
+        resp.setStatus(HttpStatus.NOT_FOUND.value());
+        resp.setMessage(exc.getMessage());
+        resp.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
     }
 }
