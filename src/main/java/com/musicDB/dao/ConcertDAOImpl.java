@@ -99,10 +99,16 @@ public class ConcertDAOImpl implements ConcertDAO {
 
     @Override
     public void setConcertSongs(long concertId, List<Integer> songIds) {
-        // Inserting all concert songs via SQL into the N:M resulting table.
+        String sql = "";
         Session currentSession = sessionFactory.getCurrentSession();
+
+        // Delete any possible previous songs from concert to set them again.
+        sql = String.format("DELETE FROM concert_song WHERE concert_id = %s", concertId);
+        currentSession.createNativeQuery(sql).executeUpdate();
+
+        // Inserting all concert songs via SQL into the N:M resulting table.
         for (Integer songId : songIds){
-            String sql = String.format("INSERT INTO concert_song (concert_id, song_id) VALUES(%s, %s)", concertId, songId);
+            sql = String.format("INSERT INTO concert_song (concert_id, song_id) VALUES(%s, %s)", concertId, songId);
             currentSession.createNativeQuery(sql).executeUpdate();
         }
     }
